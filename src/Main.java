@@ -10,13 +10,19 @@ public class Main {
     public static void main(String[] args) {
     	/*Checks if all 4 arguments were inserted correctly 
     	 * (for example: register.exe breadth 5 18 solution.txt) */
+    	/*HOW TO RUN VIA CMD(Developer Notes):
+    	 * 1. Compile: javac Main.java RegisterNode.java SearchSolver.java
+    	 * 2. Run: java Main breadth 5 18 solution.txt*/
         if (args.length < 4) {
-            System.out.println("How to use via cmd:"
-            		+ " java Main <method> <start> <target> <output_file>"
-            		+ "cd C:\\Users\\PC\\eclipse-workspace\\RegisterProject\\src\r\n"
-            		+ "javac Main.java RegisterNode.java SearchSolver.java\r\n"
-            		+ "e.g. java Main breadth 5 18 solution.txt\r\n");
-            System.out.println("Available methods to use: breadth, depth, best, astar");
+            System.out.println("Error: Insufficient arguments."
+            		+ "\nUsage: java Main <method> <start> <target> <output_file>"
+            		+ "\nParameters:"
+            		+ "\n<method>: breadth, depth, best, astar"
+            		+ "\n<start>: Initial integer value (e.g. 5)"
+            		+ "\n<target>: Target integer value (e.g. 18)"
+            		+ "\n<output_file>: Path to save the solution (e.g. solution.txt)"
+            		+ "\nExample:"
+            		+ "\njava Main breadth 5 18 solution.txt");
             return;
         }
 
