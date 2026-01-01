@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegisterNode{
+public class RegisterNode {
 	private static final int MAX_LIMIT = 1_000_000_000; //Maximum limit according to the exercise instructions
 	public int value;			//Current value of register
 	public RegisterNode parent;	//Parent node
@@ -18,6 +18,7 @@ public class RegisterNode{
 		this.operation = operation;
 		this.operationCost = operationCost;
 		this.g = parentG + operationCost;
+		this.h = 0; //Initialization, because it will be calculated via a method
 	}
 	
 	public List<RegisterNode> getSuccessors() {
@@ -69,34 +70,5 @@ public class RegisterNode{
 			}
 		}
 		return successors;
-	}
-	
-	
-	/* Overrides equals so that two RegisterNode objects are considered equal
-	 if and only if they represent the same register value (state).
-	 This definition of equality is used for state comparison and
-	 cycle detection in search algorithms.*/
-	@Override
-	public boolean equals(Object obj) {
-		if(this == obj) return true;
-		
-		if(obj == null || getClass()!= obj.getClass()) return false;
-		
-		RegisterNode that = (RegisterNode) obj;
-		return this.value == that.value;
-	}
-	
-	
-	/*Overrides hashCode so that nodes representing the same state (same value)
-	 are placed in the same hash bucket. This is necessary for cycle detection
-	 using HashSet in search algorithms.
-	 Overrides hashCode to ensure consistency with equals().
-	 Two RegisterNode objects are considered equal if they represent the same
-	 register value; therefore, they must also return the same hash code.
-	 This is required for correct cycle detection when using HashSet.*/
-	@Override
-	public int hashCode() {
-		return value;
-		//return Integer.hashCode(value);
 	}
 }

@@ -8,10 +8,15 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-    	/*Checks if all 4 arguments were inserted correctly (for example: register.exe breadth 5 18 solution.txt) */
+    	/*Checks if all 4 arguments were inserted correctly 
+    	 * (for example: register.exe breadth 5 18 solution.txt) */
         if (args.length < 4) {
-            System.out.println("Usage: java Main <method> <start> <target> <output_file>");
-            System.out.println("Methods: breadth, depth, best, astar");
+            System.out.println("How to use via cmd:"
+            		+ " java Main <method> <start> <target> <output_file>"
+            		+ "cd C:\\Users\\PC\\eclipse-workspace\\RegisterProject\\src\r\n"
+            		+ "javac Main.java RegisterNode.java SearchSolver.java\r\n"
+            		+ "e.g. java Main breadth 5 18 solution.txt\r\n");
+            System.out.println("Available methods to use: breadth, depth, best, astar");
             return;
         }
 
@@ -61,7 +66,7 @@ public class Main {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
             //The number of steps is the size of the list minus 1 (the initial node is not a step).
             int N = path.size() - 1;
-            //The total cost is g of the last node.
+            //The total cost is g of the last node(The List path is 0 indexed).
             int C = path.get(path.size() - 1).g;
 
             //Line 1: N, C
@@ -74,9 +79,9 @@ public class Main {
                 RegisterNode prevNode = path.get(i-1);
                 
                 /*Attention to wording of the exercise:
-                 "number... the numbers ON which the commands were executed"
-                 So we print the number of the PREVIOUS NODE (prevNode.value), not the result.
-                 e.g. If I have 5 -> (increase) -> 6, the command was executed ON 5.*/
+                 * "number... the numbers ON which the commands were executed"
+                 * So we print the number of the PREVIOUS NODE (prevNode.value), not the result.
+                 * e.g. If I have 5 -> (increase) -> 6, the command was executed ON 5.*/
                 writer.println(node.operation + " " + prevNode.value + " " + node.operationCost);
             }
             
