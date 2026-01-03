@@ -97,10 +97,10 @@ public class SearchSolver {
 			List<RegisterNode> successors = current.getSuccessors();
 			for(RegisterNode next : successors) {
 				
-				/* Cycle check: If we haven't visited it before
-				 * The statement asks for a check "at least on the current path."
-				 * The visited set here does something more powerful: it checks 
-				 * the ENTIRE tree we have seen. This is safe and faster to avoid loops.*/
+				/*Cycle check: If we haven't visited it before
+				 *The statement asks for a check "at least on the current path."
+				 *The visited set here does something more powerful: it checks 
+				 *the ENTIRE tree we have seen. This is safe and faster to avoid loops.*/
 				if(!visited.contains(next.value)) {
 					visited.add(next.value);
 					frontier.push(next);

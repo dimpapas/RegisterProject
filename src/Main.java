@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/*HOW TO RUN VIA CMD(Developer Notes):
+ * 1. Compile: javac Main.java RegisterNode.java SearchSolver.java
+ * 2. Run: java Main breadth 5 18 solution.txt*/
+
 public class Main {
 
     public static void main(String[] args) {
     	/*Checks if all 4 arguments were inserted correctly 
-    	 * (for example: register.exe breadth 5 18 solution.txt) */
-    	/*HOW TO RUN VIA CMD(Developer Notes):
-    	 * 1. Compile: javac Main.java RegisterNode.java SearchSolver.java
-    	 * 2. Run: java Main breadth 5 18 solution.txt*/
+    	 *(for example: register.exe breadth 5 18 solution.txt) */
         if (args.length < 4) {
             System.out.println("Error: Insufficient arguments."
             		+ "\nUsage: java Main <method> <start> <target> <output_file>"
@@ -76,7 +77,7 @@ public class Main {
             int C = path.get(path.size() - 1).g;
 
             //Line 1: N, C
-            writer.println(N + ", " + C);
+            writer.println(N + ", " + C + "\t //N is the number of commands in the solution, C is the total cost");
 
             /*Lines 2 to N+1: instruction number cost
               We start from i=1 because i=0 is the initial state (no operation)*/
@@ -85,9 +86,9 @@ public class Main {
                 RegisterNode prevNode = path.get(i-1);
                 
                 /*Attention to wording of the exercise:
-                 * "number... the numbers ON which the commands were executed"
-                 * So we print the number of the PREVIOUS NODE (prevNode.value), not the result.
-                 * e.g. If I have 5 -> (increase) -> 6, the command was executed ON 5.*/
+                 *"number... the numbers ON which the commands were executed"
+                 *So we print the number of the PREVIOUS NODE (prevNode.value), not the result.
+                 *e.g. If I have 5 -> (increase) -> 6, the command was executed ON 5.*/
                 writer.println(node.operation + " " + prevNode.value + " " + node.operationCost);
             }
             
