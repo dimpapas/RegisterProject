@@ -45,7 +45,7 @@ public class RegisterNode {
 		
 		//4.Half
 		if(this.value > 0) {
-			int newValue =(int) Math.floor(this.value/2);
+			int newValue =(int) Math.floor(this.value/2.0);
 			int cost = (int) Math.ceil(this.value/4.0) + 1;
 			successors.add(new RegisterNode(newValue, this, "half", cost, this.g));
 		}

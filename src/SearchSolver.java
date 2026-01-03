@@ -1,4 +1,3 @@
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -98,10 +97,10 @@ public class SearchSolver {
 			List<RegisterNode> successors = current.getSuccessors();
 			for(RegisterNode next : successors) {
 				
-				/* Cycle check: If we haven't visited it before
-				 * The statement asks for a check "at least on the current path."
-				 * The visited set here does something more powerful: it checks 
-				 * the ENTIRE tree we have seen. This is safe and faster to avoid loops.*/
+				/*Cycle check: If we haven't visited it before
+				 *The statement asks for a check "at least on the current path."
+				 *The visited set here does something more powerful: it checks 
+				 *the ENTIRE tree we have seen. This is safe and faster to avoid loops.*/
 				if(!visited.contains(next.value)) {
 					visited.add(next.value);
 					frontier.push(next);
@@ -117,12 +116,10 @@ public class SearchSolver {
 	private RegisterNode bestFirst(RegisterNode rootNode, int target) {
 		/*Priority Queue: It uses a heap data structure.
 		 * This allows you to extract the "best" node in O(logn) time.*/
-		PriorityQueue<RegisterNode> frontier = new PriorityQueue<RegisterNode>(new Comparator<RegisterNode>() {
-			@Override
-			public int compare(RegisterNode n1, RegisterNode n2) {
-				return Double.compare(n1.h, n2.h);
-			}
-		});
+		PriorityQueue<RegisterNode> frontier = new PriorityQueue<RegisterNode>(
+				//Lambda expression: Compares only based on h
+				(n1, n2) -> Double.compare(n1.h, n2.h)
+		);
 		
 		Set<Integer> visited = new HashSet<Integer>();//Set to avoid cycles in the tree
 		
@@ -157,12 +154,10 @@ public class SearchSolver {
 	
 	//4. A*(A Star) Search
 	private RegisterNode astar(RegisterNode rootNode, int target) {
-		PriorityQueue<RegisterNode> frontier = new PriorityQueue<RegisterNode>(new Comparator<RegisterNode>() {
-			@Override
-			public int compare(RegisterNode n1, RegisterNode n2) {
-				return Double.compare(n1.g + n1.h, n2.g + n2.h);
-			}
-		});
+		PriorityQueue<RegisterNode> frontier = new PriorityQueue<RegisterNode>(
+				//Lambda expression: Compares based on f = g + h
+				(n1, n2) -> Double.compare(n1.g + n1.h, n2.g + n2.h)
+		);
 		
 		Set<Integer> visited = new HashSet<Integer>();//Set to avoid cycles in the tree
 		
