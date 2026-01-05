@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -84,10 +85,16 @@ public class SearchSolver {
 		Set<Integer> visited = new HashSet<Integer>();//Set to avoid cycles in the tree
 		
 		frontier.push(rootNode);
-		visited.add(rootNode.value);
 		
 		while(!frontier.isEmpty()) {
 			RegisterNode current = frontier.pop();//Firstly,we take the most recent node
+			
+			//Cycle check
+			if(visited.contains(current.value)) {
+				continue;
+			}
+			
+			visited.add(current.value);
 			
 			if(current.value == target) {
 				return current;
@@ -95,16 +102,15 @@ public class SearchSolver {
 			
 			//Creating the children of the current node
 			List<RegisterNode> successors = current.getSuccessors();
+			
+			/*Reversing the order because the frontier is a Stack (LIFO)
+			 *The getSuccessors() method returns operations in the order: [Increase, Decrease, Double, ...]
+			 *If we push them in that order, 'Increase' is at the bottom and 'Root' is at the top.
+			 * We reverse the list so 'Increase' is pushed last (ending up at the top) and explored first.*/
+			Collections.reverse(successors);
+			
 			for(RegisterNode next : successors) {
-				
-				/*Cycle check: If we haven't visited it before
-				 *The statement asks for a check "at least on the current path."
-				 *The visited set here does something more powerful: it checks 
-				 *the ENTIRE tree we have seen. This is safe and faster to avoid loops.*/
-				if(!visited.contains(next.value)) {
-					visited.add(next.value);
-					frontier.push(next);
-				}
+				frontier.push(next);
 			}
 		}
 		//No solution found
